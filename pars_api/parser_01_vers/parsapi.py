@@ -4,8 +4,7 @@
 # ----------------------------------------------------------------------------------------------------------------------
 import os
 import requests
-import pandas as pd
-from pandas import DataFrame
+
 import time
 import schedule
 from datetime import datetime
@@ -121,7 +120,7 @@ class ParsAPI:
                         ('filterParams', encoded_value_1),
                         ('filterParams', encoded_value_2),
                     ].
-                    На верхнем уровне, далее, - передача в request.
+                    На верхнем уровне, далее,- передача в request.
 
         Однако, стоит учитывать, что не все сервисы корректно принимают параметры с одинаковыми ключами. Хотя requests
         корректно формирует URL с повторяющимися параметрами, сервер может их неправильно обрабатывать.
