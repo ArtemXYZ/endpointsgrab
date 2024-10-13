@@ -35,34 +35,34 @@ class ServiceTools(BaseProperty):
         # pass
 
     # __________________________________________________________________ TOOLS
-    @staticmethod
-    def _check_path_file(path_file):
-        """
-        Перед сохранением результатов работы парсера проверяем наличие существования директории, если таковой нет,
-        то создается.
-        """
-        # ________________________________________________ CHECK
-        # Получаем директорию из пути:
-        path_dir = os.path.dirname(path_file)
+    # @staticmethod
+    # def _check_path_file(path_file):
+    #     """
+    #     Перед сохранением результатов работы парсера проверяем наличие существования директории, если таковой нет,
+    #     то создается.
+    #     """
+    #     # ________________________________________________ CHECK
+    #     # Получаем директорию из пути:
+    #     path_dir = os.path.dirname(path_file)
+    #
+    #     # Проверка, существует ли директория, создание её, если нет:
+    #     if not os.path.exists(path_dir):
+    #         os.makedirs(path_dir)
+    #         print(f'Создана новая дирректория для сохранения файлов: {path_dir}')
 
-        # Проверка, существует ли директория, создание её, если нет:
-        if not os.path.exists(path_dir):
-            os.makedirs(path_dir)
-            print(f'Создана новая дирректория для сохранения файлов: {path_dir}')
-
-    def _save_data(self, df: DataFrame, path_file_dump, path_file_excel):
-        """
-        Перед сохранением результатов работы парсера проверяем наличие существования директории, если таковой нет,
-        то создаётся.
-        """
-        # ________________________________________________ CHECK
-        self._check_path_file(path_file_dump)
-        self._check_path_file(path_file_excel)
-        # ________________________________________________ SAVE
-        # Сохраняем результат парсинга в дамп и в эксель:
-        dump(df, path_file_dump)  # _name_dump = '../data/df_full_branch_data.joblib'
-        df.to_excel(path_file_excel, index=False)  # _name_excel = '../data/df_full_branch_data.xlsx'
-        print('Результат парсинга успешно сохранен в дамп и в эксель файлы.')
+    # def _save_data(self, df: DataFrame, path_file_dump, path_file_excel):
+    #     """
+    #     Перед сохранением результатов работы парсера проверяем наличие существования директории, если таковой нет,
+    #     то создаётся.
+    #     """
+    #     # ________________________________________________ CHECK
+    #     self._check_path_file(path_file_dump)
+    #     self._check_path_file(path_file_excel)
+    #     # ________________________________________________ SAVE
+    #     # Сохраняем результат парсинга в дамп и в эксель:
+    #     dump(df, path_file_dump)  # _name_dump = '../data/df_full_branch_data.joblib'
+    #     df.to_excel(path_file_excel, index=False)  # _name_excel = '../data/df_full_branch_data.xlsx'
+    #     print('Результат парсинга успешно сохранен в дамп и в эксель файлы.')
 
     # def _get_response(self, url: str, params: dict = None, cookies: dict = None, json_type=True) -> object:
     #     """Универсальная функция для запросов с передаваемыми параметрами. """
@@ -174,49 +174,7 @@ class ServiceTools(BaseProperty):
             print(f'Ошибка декодирования: {e}')
             return None
 
-    @staticmethod
-    def _encoded_request_input_params(branch_code: str, region_shop_code: str):
-        """
-         Формирует закодированные параметры запроса для фильтрации.
 
-        :param branch_code: Код филиала
-        :param region_shop_code: Код магазина региона
-        :return: Список закодированных параметров фильтра
-        :rtype: list
-
-        region_shop_code = 'S906'
-        branch_code = 'A311'
-        """
-
-        results_keys_value = []
-
-        # 1. Формирование фильтров:
-        filter_param_9 = f'["Только в наличии","-9","Да"]'
-        filter_param_12 = f'["Забрать из магазина по адресу","-12","{branch_code}"]'
-        filter_param_11 = f'["Забрать через 15 минут","-11","{region_shop_code}"]'
-        filter_tuple = (filter_param_9, filter_param_12, filter_param_11)
-
-        # 2. Кодирование:
-        for param_list in filter_tuple:
-            # Преобразование списка в строку
-            joined_string = str(param_list)
-
-            encoded_list = joined_string.encode('utf-8')  # Преобразуем списки в строку и кодируем в  в байты 'utf-8':
-            base64_encoded = base64.b64encode(encoded_list).decode('utf-8')  # Base64-кодирование
-            # print(f"Base64-кодированная строка: {base64_encoded}")
-            final_encoded = urllib.parse.quote(base64_encoded)  # URL-кодирование
-            # print(f"Итоговый URL-кодированный параметр: {final_encoded}")
-
-            # 3. Сохраняем в виде словаря для передачи как параметр в строку запроса.
-            # Добавляем в список результат кодирования:
-            results_keys_value.append(final_encoded)  # Ожидаем на выход: [рез1, рез2, рез3]
-            # print(results_keys_value)
-
-        filter_params = (f'&filterParams={results_keys_value[0]}'
-                         f'&filterParams={results_keys_value[1]}'
-                         f'&filterParams={results_keys_value[2]}')
-
-        return filter_params
 
 
 
@@ -225,10 +183,10 @@ class ServiceTools(BaseProperty):
 
 # ----------------------------------------------------------------------------------------------------------------------
 
-    def param_encoded(self, param_string: str | int | float):
+    def param_encoded(self, param_string: str | int | float): # todo добавить валидацию. сделать возможно статик методом
         """Базовый метод кодирования в base64."""
-        param_string = str(param_string) # Приводим к str принудительно.
-        bytes_string = param_string.encode('utf-8') # Преобразуем строку в байтовый объект (bytes), utf-8:
+        param_string = str(param_string)  # Приводим к str принудительно.
+        bytes_string = param_string.encode('utf-8')  # Преобразуем строку в байтовый объект (bytes), utf-8:
         base64_encoded = base64.b64encode(bytes_string).decode('utf-8')  # Base64-кодирование
         result_encoded = urllib.parse.quote(base64_encoded)  # URL-кодирование
         return result_encoded
@@ -258,7 +216,7 @@ class ServiceTools(BaseProperty):
                              f"Допустимые типы даннных: str, int, float, dict, list, tuple, bool.")
         return value
 
-    def args_validation(self,
+    def args_validation(self,  # todo пересмотреть может исправить (упростить)
                         key: str,
                         value: Union[str, int, float, tuple[Union[str, int, float]], list[Union[str, int, float]]]
                         ) -> str:
@@ -333,7 +291,7 @@ class ServiceTools(BaseProperty):
         в формируемую строку (full_url = f'{url_base}{ilter_params}, передача такой строки через метод param в requests
         вызовет ошибку.
         """
-        temp_params_list  = []
+        temp_params_list = []
         # Перебираем все значения в *values
         for value in values:
             param_string = self.args_validation(key, value)  # f'&{key}={self._encoded(value)}' parser_01_vers_(procedural_func)

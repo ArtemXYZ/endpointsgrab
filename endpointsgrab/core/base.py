@@ -184,19 +184,19 @@ class BaseProperty:
         """
         self.__CON = self._validation_params(new_connect_obj, Session, '_set_connect')
 
-    def _get_name_table(self):
-        """
-        Возвращает имя таблицы в базе данных определенную по умолчанию для сохранения результатов парсинга (геттер).
-        """
-        return self.__NAME_TABLE
-
-    def _set_name_table(self, new_name_table):
-        """
-        Установка нового имени таблицы в базе данных для сохранения результатов парсинга.
-        """
-        self.__NAME_TABLE = self._validation_params(new_name_table, str, '_set_name_table')
-        print(f'Установлено новое значение имени таблицы в базе данных для сохранения результатов парсинга:'
-              f' {self.__NAME_TABLE}')
+    # def _get_name_table(self):
+    #     """
+    #     Возвращает имя таблицы в базе данных определенную по умолчанию для сохранения результатов парсинга (геттер).
+    #     """
+    #     return self.__NAME_TABLE
+    #
+    # def _set_name_table(self, new_name_table):
+    #     """
+    #     Установка нового имени таблицы в базе данных для сохранения результатов парсинга.
+    #     """
+    #     self.__NAME_TABLE = self._validation_params(new_name_table, str, '_set_name_table')
+    #     print(f'Установлено новое значение имени таблицы в базе данных для сохранения результатов парсинга:'
+    #           f' {self.__NAME_TABLE}')
 
     def _get_name_schem(self):
         """
