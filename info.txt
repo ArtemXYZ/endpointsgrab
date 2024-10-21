@@ -1,0 +1,19 @@
+Данный репозиторий содержит будущую библиотеку (ведется разработка) для парсинга через открытые и приватные эндпоинты.
+Основное предназначение — упростить и автоматизировать работу с приватными эндпоинтами, предоставив инструменты для
+удобной работы с закодированными (в base64) параметрами URL, куки, подстановки заголовков, динамического формирования
+набора параметров запроса и их кодирование, запуска паттернов парсинга по расписанию (вы просто пишете функцию
+обработки нужных данных и передаете ее в специальный метод) и др.
+
+This repository contains a future library (under development) for parsing through open and private endpoints.
+The main purpose is to simplify and automate work with private endpoints by providing tools for
+convenient work with base64—encoded URL parameters, cookies, header substitution, dynamic formation
+of a set of query parameters and their encoding, launching parsing patterns on a schedule (you just write a function
+for processing the necessary data and pass it to a special method) and others.
+
+
+
+
+
+
+Созданы инструменты для формирования и передачи параметров запроса с одинаковыми ключами их кодирование в base64б,
+а так же обработка / декодирование URL.
